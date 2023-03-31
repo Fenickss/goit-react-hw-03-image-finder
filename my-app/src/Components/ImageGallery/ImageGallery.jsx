@@ -1,17 +1,22 @@
-import { Component } from "react";
-import style from "./ImageGallery.module.css";
-import ImageGalleryItem from "../ImageGalleryItem";
+import React from "react";
+// import PropTypes from "prop-types";
+import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
+import s from "./ImageGallery.module.css";
 
-class ImageGallery extends Component {
-  render() {
-    return (
-      <ul className={style.ImageGallery}>
-        <>
-          <ImageGalleryItem imgName={this.props.imgName} />
-        </>
-      </ul>
-    );
-  }
-}
+const ImageGallery = ({ images, onImgClick }) => (
+  <ul className={s.ImageGallery}>
+    {images &&
+      images.hits.map((image) => {
+        return (
+          <ImageGalleryItem
+            webformatURL={image.webformatURL}
+            largeImage={image.largeImageURL}
+            key={image.id}
+            onModal={onImgClick}
+          />
+        );
+      })}
+  </ul>
+);
 
 export default ImageGallery;

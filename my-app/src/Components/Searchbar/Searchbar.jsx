@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { CiImageOn } from "react-icons/ci";
+import PropTypes from "prop-types";
 
 import style from "./Searchbar.module.css";
 
@@ -8,19 +9,18 @@ class Searchbar extends Component {
     imgName: "",
   };
 
-  handeleImgNamechange = (event) => {
+  handeleImgNameChange = (event) => {
     this.setState({ imgName: event.currentTarget.value });
   };
 
   handleSubmit = (event) => {
-    const { imgName } = this.state;
     event.preventDefault();
 
     if (this.state.imgName.trim() === "") {
       alert("Введите имя картинки");
       return;
     }
-    this.props.onSubmit(imgName);
+    this.props.onSubmit(this.state.imgName);
     this.setState({ imgName: "" });
   };
 
@@ -35,7 +35,7 @@ class Searchbar extends Component {
           </button>
 
           <input
-            onChange={this.handeleImgNamechange}
+            onChange={this.handeleImgNameChange}
             className={style.input}
             value={imgName}
             type="text"
@@ -50,3 +50,7 @@ class Searchbar extends Component {
 }
 
 export default Searchbar;
+
+Searchbar.propType = {
+  onSubmit: PropTypes.func.isRequired,
+};

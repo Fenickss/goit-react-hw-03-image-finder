@@ -1,34 +1,18 @@
-import { Component } from "react";
-import style from "./ImageGalleryItem.module.css";
+import React from "react";
 
-class ImageGalleryItem extends Component {
-  componentDidUpdate(prevProps, prevState) {
-    const prevName = prevProps.imgName;
-    const nextName = this.props.imgName;
+import s from "./ImageGalleryItem.module.css";
 
-    if (prevName !== nextName) {
-      console.log("изменилось имя");
-
-      fetch(
-        `https://pixabay.com/api/?key=24463326-9b2d5a427846ea9fa30299421&image_type=all/1`
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((img) => console.log(img));
-    }
-  }
-  render() {
-    return (
-      <li className={style.ImageGalleryItem}>
-        <img
-          className={style.ImageGalleryItem_image}
-          src={this.props.imgName}
-          alt="#"
-        />
-      </li>
-    );
-  }
-}
+const ImageGalleryItem = ({ webformatURL, id, largeImage, onModal }) => {
+  return (
+    <li key={id} className={s.ImageGalleryItem}>
+      <img
+        src={webformatURL}
+        alt={id}
+        className={s.ImageGalleryItem_image}
+        onClick={() => onModal(largeImage)}
+      />
+    </li>
+  );
+};
 
 export default ImageGalleryItem;
