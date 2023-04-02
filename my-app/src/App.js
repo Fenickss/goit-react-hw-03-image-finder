@@ -22,6 +22,7 @@ class App extends Component {
 
   handleFormSubmit = (imgName) => {
     this.setState({ imgName, status: "resolved" });
+
     this.resetPage();
   };
 
@@ -30,12 +31,16 @@ class App extends Component {
     const nextName = this.state.imgName;
 
     if (prevName !== nextName) {
+      const { page } = this.state;
       this.setState({ status: "pending" });
       console.log("изменилось имя");
-      const images = await fetchImages(nextName);
 
       try {
+        const images = await fetchImages(nextName, page);
+
         this.setState({ images, status: "resolved" });
+
+        this.IncrementPage();
       } catch (error) {
         this.setState({ error, status: "rejected" });
       }
@@ -44,14 +49,14 @@ class App extends Component {
 
   getImages = async () => {
     const { page, imgName } = this.state;
-
+    this.IncrementPage();
     try {
       const { hits } = await fetchImages(imgName, page);
-
       this.setState((prevState) => ({
-        images: [...prevState.images, ...hits],
-        currentPage: prevState.page + 1,
+        // images: [...prevState.images, ...hits],
       }));
+
+      console.log(hits);
     } catch (error) {
       console.log("Smth wrong with App fetch", error);
       this.setState({ error });
@@ -60,7 +65,7 @@ class App extends Component {
 
   IncrementPage = () => {
     this.setState((prevState) => ({
-      page: prevState.page + 1,
+      page: (prevState.page += 1),
     }));
   };
 
