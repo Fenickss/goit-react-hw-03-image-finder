@@ -51,12 +51,12 @@ class App extends Component {
     const { page, imgName } = this.state;
     this.IncrementPage();
     try {
-      const { hits } = await fetchImages(imgName, page);
+      const newImage = await fetchImages(imgName, page);
       this.setState((prevState) => ({
-        // images: [...prevState.images, ...hits],
+        images: [...prevState.images, ...newImage],
       }));
 
-      console.log(hits);
+      console.log([...newImage]);
     } catch (error) {
       console.log("Smth wrong with App fetch", error);
       this.setState({ error });

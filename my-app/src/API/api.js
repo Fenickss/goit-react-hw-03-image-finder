@@ -7,6 +7,6 @@ export async function fetchImages(nextName, page) {
   return axios(
     `${baseUrl}?image_type=photo&orientation=horizontal&q=${nextName}&key=${key}&per_page=12&page=${page}`
   ).then(({ data }) => {
-    return data;
+    return data.hits;
   });
 }

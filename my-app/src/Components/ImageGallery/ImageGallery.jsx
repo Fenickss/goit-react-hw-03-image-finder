@@ -6,7 +6,7 @@ import s from "./ImageGallery.module.css";
 const ImageGallery = ({ images, onImgClick }) => (
   <ul className={s.ImageGallery}>
     {images &&
-      images.hits.map((image) => {
+      images.map((image) => {
         return (
           <ImageGalleryItem
             webformatURL={image.webformatURL}
