@@ -12,7 +12,7 @@ import Button from "./Components/Button";
 class App extends Component {
   state = {
     imgName: "",
-    images: null,
+    images: [],
     status: "idle",
     error: "",
     page: 1,
